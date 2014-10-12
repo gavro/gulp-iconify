@@ -2,11 +2,7 @@
   "name": "gulp-iconify",
   "version": "0.0.1",
   "description": "'A mystical CSS icon solution', grunticon-like build system.",
-  "author": {
-    "name": "Gabrijel Gavranović",
-    "email": "gabrijel@gavro.nl",
-    "url": "http://gavro.nl"
-  },
+  "author": "Gabrijel Gavranović <gabrijel@gavro.nl> (http://gavro.nl)",
   "keywords": [
     "gulpplugin",
     "base64",
@@ -21,6 +17,10 @@
   },
   "main": "index.js",
   "dependencies": {
+    "fs": "*",
+    "path": "*",
+    "domain": "*",
+    "gulp": "*",
     "gulp-util": "~2.2.14",
     "mustache": "~0.8.2",
     "through": "~2.3.4",
@@ -31,5 +31,10 @@
   },
   "bugs": {
     "url": "https://github.com/gavro/gulp-iconify/issues"
-  }
+  },
+  "homepage": "https://github.com/gavro/gulp-iconify",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
 }
