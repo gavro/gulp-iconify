@@ -3,21 +3,73 @@ var iconify = require('./lib/iconify');
 var del     = require('del');
 var svg2png = require('gulp-svg2png');
 var sass    = require('gulp-sass');
+var gutil   = require('gulp-util');
+var path    = require('path');
+
+function getErrors(opts) {
+    var error = {};
+
+    if(!opts.src) {
+        error.src = "Error: src not defined; please specify your source (src: './img/icons/*.svg').";
+    }
+
+    if(Object.keys(error).length) {
+        Object.keys(error).forEach(function(k) {
+            gutil.log(error[k]);
+        });
+
+        process.exit();
+    }
+}
+
+function setFallbacks(opts) {
+    var warning = {};
+
+    if(!opts.pngOutput) {
+        opts.pngOutput = path.dirname(opts.src)+'/png';
+        warning.pngOutput = "Info: No pngOutput folder defined. Using fallback ("+opts.pngOutput+").";
+    }
+
+    if(!opts.scssOutput) {
+        opts.scssOutput = './scss';
+        warning.scssOutput = "Info: No scssOutput folder defined. Using fallback: ("+opts.scssOutput+").";
+    }
+
+    if(!opts.cssOutput) {
+        opts.cssOutput = './css';
+        warning.cssOutput = "Info: No cssOutput folder defined. Using fallback: ("+opts.cssOutput+").";
+    }
+
+    if(!opts.styleTemplate) {
+        opts.styleTemplate = path.join(__dirname, 'lib/output.mustache');
+        warning.styleTemplate = "Info: No styleTemplate defined. Using default template.";
+    }
+
+    if(Object.keys(warning).length) {
+        Object.keys(warning).forEach(function(k) {
+            gutil.log(warning[k]);
+        });
+    }
+}
 
 module.exports = function(opts) {
+
+    getErrors(opts);
+    setFallbacks(opts);
+
     gulp.task('iconify-clean', function(cb) {
         del([opts.scssOutput+'/icons.*.scss', opts.cssOutput+'/icons.*.css', opts.pngOutput+'/*.png'], cb);
     });
 
     gulp.task('iconify-convert', ['iconify-clean'], function() {
-        gulp.src(opts.svgSrc)
+        gulp.src(opts.src)
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
                 styleName: 'icons.svg.scss'
             }))
             .pipe(gulp.dest(opts.scssOutput));
 
-        var stream = gulp.src(opts.svgSrc)
+        var stream = gulp.src(opts.src)
             .pipe(svg2png())
                 .pipe(gulp.dest(opts.pngOutput))
                     .pipe(iconify({

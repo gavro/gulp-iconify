@@ -11,12 +11,26 @@ gulp-iconify
 npm install gulp-iconify --save-dev
 ```
 
-
-###Example config
+###Simple example
 ```javascript
 gulp.task('default', function() {
     iconify({
-        svgSrc: './img/icons/*.svg',
+        src: './img/icons/*.svg'
+    });
+});
+```
+
+This simple call defaults to the following:
+- Rendered PNGs will be saved in: './img/icons/png'
+- Rendered SCSS files will be saved in: './scss'
+- Rendered CSS files will be saved in: './css'
+- The default styleTemplate fill be used (see below)
+
+###Customized example
+```javascript
+gulp.task('default', function() {
+    iconify({
+        src: './img/icons/*.svg',
         pngOutput: './img/icons/png',
         scssOutput: './scss',
         cssOutput:  './css',
@@ -24,9 +38,7 @@ gulp.task('default', function() {
     });
 });
 ```
-
-
-###Example styleTemplate:
+###Example (and default) styleTemplate:
 ```mustache
 .icon {
     background-repeat: no-repeat;
