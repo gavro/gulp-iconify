@@ -30,14 +30,14 @@ function setFallbacks(opts) {
         warning.pngOutput = "Info: No pngOutput folder defined. Using fallback ("+opts.pngOutput+").";
     }
 
-    if(!opts.scssOutput) {
-        opts.scssDisabled = true;
-        warning.scssOutput = "Info: No scssOutput folder defined. SCSS files will not be saved.";
-    }
-
     if(!opts.cssOutput) {
         opts.cssOutput = './css';
         warning.cssOutput = "Info: No cssOutput folder defined. Using fallback: ("+opts.cssOutput+").";
+    }
+
+    if(!opts.scssOutput) {
+        opts.scssDisabled = true;
+        warning.scssOutput = "Info: No scssOutput folder defined. SCSS files will not be saved.";
     }
 
     if(!opts.styleTemplate) {
