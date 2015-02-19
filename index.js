@@ -31,8 +31,8 @@ function setFallbacks(opts) {
     }
 
     if(!opts.scssOutput) {
-        opts.scssOutput = './scss';
-        warning.scssOutput = "Info: No scssOutput folder defined. Using fallback: ("+opts.scssOutput+").";
+        opts.scssDisabled = true;
+        warning.scssOutput = "Info: No scssOutput folder defined. SCSS files will not be saved.";
     }
 
     if(!opts.cssOutput) {
@@ -53,11 +53,17 @@ function setFallbacks(opts) {
 }
 
 module.exports = function(opts) {
+    opts.scssDisabled = false;
 
     getErrors(opts);
     setFallbacks(opts);
 
     gulp.task('iconify-clean', function(cb) {
+        if(!opts.scssOutput) {
+            opts.scssDisabled = true;
+            opts.scssOutput = opts.cssOutput;
+        }
+
         del([opts.scssOutput+'/icons.*.scss', opts.cssOutput+'/icons.*.css', opts.pngOutput+'/*.png'], cb);
     });
 
@@ -94,12 +100,21 @@ module.exports = function(opts) {
         return stream;
     });
 
-    gulp.task('iconify', ['iconify-convert', 'iconify-fallback'], function() {
-        gulp.src(opts.scssOutput+'/icons.*.scss')
+    gulp.task('iconify-sass', ['iconify-convert', 'iconify-fallback'], function() {
+        var stream = gulp.src(opts.scssOutput+'/icons.*.scss')
             .pipe(sass({
                 outputStyle: 'compressed'
             }))
             .pipe(gulp.dest(opts.cssOutput));
+
+        return stream;
+    });
+
+    gulp.task('iconify', ['iconify-convert', 'iconify-fallback', 'iconify-sass'], function() {
+        // remove SCSS files if folder is not set.
+        if(opts.scssDisabled) {
+            del.sync([opts.scssOutput+'/icons.*.scss']);
+        }
     });
 
     gulp.start('iconify');

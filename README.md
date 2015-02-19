@@ -22,7 +22,7 @@ gulp.task('default', function() {
 
 This simple call defaults to the following:
 - Rendered PNGs will be saved in: './img/icons/png'
-- Rendered SCSS files will be saved in: './scss'
+- Rendered SCSS files will NOT be saved
 - Rendered CSS files will be saved in: './css'
 - The default styleTemplate fill be used (see below)
 
