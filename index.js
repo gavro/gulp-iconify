@@ -96,7 +96,9 @@ module.exports = function(opts) {
 
     gulp.task('iconify', ['iconify-convert', 'iconify-fallback'], function() {
         gulp.src(opts.scssOutput+'/icons.*.scss')
-            .pipe(sass())
+            .pipe(sass({
+                outputStyle: 'compressed'
+            }))
             .pipe(gulp.dest(opts.cssOutput));
     });
 
