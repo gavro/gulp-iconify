@@ -21,6 +21,7 @@ gulp.task('default', function() {
 ```
 
 This simple call defaults to the following:
+- SVGs will be passed through SVGO (and optimised)
 - Rendered PNGs will be saved in: './img/icons/png'
 - Rendered SCSS files will NOT be saved
 - Rendered CSS files will be saved in: './css'
@@ -35,9 +36,21 @@ gulp.task('default', function() {
         scssOutput: './scss',
         cssOutput:  './css',
         styleTemplate: '_icon_gen.scss.mustache'
+        svgoOptions: {
+            enabled: true,
+            options: {
+                plugins: [
+                    { removeUnknownsAndDefaults: false },
+                    { mergePaths: false }
+                ]
+            }
+        }
     });
 });
 ```
+
+Note: To disable SVGO, just set ```svgoOptions: { enabled: ___ }``` to anything but ```true``` .
+
 ###Example (and default) styleTemplate:
 ```mustache
 .icon {

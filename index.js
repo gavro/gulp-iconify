@@ -45,6 +45,11 @@ function setFallbacks(opts) {
         warning.styleTemplate = "Info: No styleTemplate defined. Using default template.";
     }
 
+    if(!opts.svgoOptions) {
+        opts.svgoOptions = { enabled: true }
+        warning.styleTemplate = "Info: No SVGO options defined, enabling SVGO by default.";
+    }
+
     if(Object.keys(warning).length) {
         Object.keys(warning).forEach(function(k) {
             gutil.log(warning[k]);
@@ -53,6 +58,7 @@ function setFallbacks(opts) {
 }
 
 module.exports = function(opts) {
+    opts = opts || {};
     opts.scssDisabled = false;
 
     getErrors(opts);
@@ -71,7 +77,8 @@ module.exports = function(opts) {
         gulp.src(opts.src)
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
-                styleName: 'icons.svg.scss'
+                styleName: 'icons.svg.scss',
+                svgoOptions: opts.svgoOptions
             }))
             .pipe(gulp.dest(opts.scssOutput));
 
