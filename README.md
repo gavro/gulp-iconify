@@ -25,7 +25,10 @@ This simple call defaults to the following:
 - Rendered PNGs will be saved in: './img/icons/png'
 - Rendered SCSS files will NOT be saved
 - Rendered CSS files will be saved in: './css'
-- The default styleTemplate fill be used (see below)
+- If SVG has no width attribute, the default fallback will be 300px
+- If SVG has no height attribute, the default fallback will be 200px
+- The default styleTemplate fill be used (examples shown below)
+- The default styleTemplate will *not* use the height/width slugs
 
 ###Customized example
 ```javascript
@@ -35,7 +38,9 @@ gulp.task('default', function() {
         pngOutput: './img/icons/png',
         scssOutput: './scss',
         cssOutput:  './css',
-        styleTemplate: '_icon_gen.scss.mustache'
+        styleTemplate: '_icon_gen.scss.mustache',
+        defaultWidth: '300px',
+        defaultHeight: '200px',
         svgoOptions: {
             enabled: true,
             options: {
@@ -59,6 +64,22 @@ Note: To disable SVGO, just set ```svgoOptions: { enabled: ___ }``` to anything 
     {{#items}}
     &.icon-{{slug}} {
         background-image: url('{{{datauri}}}');
+    }
+
+    {{/items}}
+}
+```
+
+###Example styleTemplate with height/width slugs:
+```mustache
+.icon {
+    background-repeat: no-repeat;
+
+    {{#items}}
+    &.icon-{{slug}} {
+        background-image: url('{{{datauri}}}');
+        width: {{width}}px;
+        height: {{height}}px;
     }
 
     {{/items}}

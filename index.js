@@ -32,7 +32,7 @@ function setFallbacks(opts) {
 
     if(!opts.cssOutput) {
         opts.cssOutput = './css';
-        warning.cssOutput = "Info: No cssOutput folder defined. Using fallback: ("+opts.cssOutput+").";
+        warning.cssOutput = "Info: No cssOutput folder defined. Using fallback ("+opts.cssOutput+").";
     }
 
     if(!opts.scssOutput) {
@@ -47,7 +47,17 @@ function setFallbacks(opts) {
 
     if(!opts.svgoOptions) {
         opts.svgoOptions = { enabled: true }
-        warning.styleTemplate = "Info: No SVGO options defined, enabling SVGO by default.";
+        warning.svgoOptions = "Info: No SVGO options defined, enabling SVGO by default.";
+    }
+
+    if(!opts.defaultWidth) {
+        opts.defaultWidth = "300px";
+        warning.defaultWidth = "Info: No defaultWidth defined. Using fallback ("+opts.defaultWidth+") if SVG has no width.";
+    }
+
+    if(!opts.defaultHeight) {
+        opts.defaultHeight = "200px";
+        warning.defaultHeight = "Info: No defaultHeight defined. Using fallback ("+opts.defaultHeight+") if SVG has no height.";
     }
 
     if(Object.keys(warning).length) {
@@ -78,7 +88,9 @@ module.exports = function(opts) {
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
                 styleName: 'icons.svg.scss',
-                svgoOptions: opts.svgoOptions
+                svgoOptions: opts.svgoOptions,
+                defaultWidth: opts.defaultWidth,
+                defaultHeight: opts.defaultHeight
             }))
             .pipe(gulp.dest(opts.scssOutput));
 
@@ -87,7 +99,9 @@ module.exports = function(opts) {
                 .pipe(gulp.dest(opts.pngOutput))
                     .pipe(iconify({
                         styleTemplate: opts.styleTemplate,
-                        styleName: 'icons.png.scss'
+                        styleName: 'icons.png.scss',
+                        defaultWidth: opts.defaultWidth,
+                        defaultHeight: opts.defaultHeight
                     }))
                     .pipe(gulp.dest(opts.scssOutput));
 
