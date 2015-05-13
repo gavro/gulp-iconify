@@ -30,14 +30,18 @@ function setFallbacks(opts) {
         warning.pngOutput = "Info: No pngOutput folder defined. Using fallback ("+opts.pngOutput+").";
     }
 
-    if(!opts.cssOutput) {
+    if(opts.cssOutput === undefined) {
         opts.cssOutput = './css';
         warning.cssOutput = "Info: No cssOutput folder defined. Using fallback ("+opts.cssOutput+").";
+    } else if (opts.cssOutput === false) {
+        opts.cssDisabled = true;
+        warning.cssOutput = "Info: CSS generation has been disabled. CSS files will not be saved.";
     }
 
     if(!opts.scssOutput) {
+        opts.scssOutput = './scss';
         opts.scssDisabled = true;
-        warning.scssOutput = "Info: No scssOutput folder defined. SCSS files will not be saved.";
+        warning.scssOutput = "Info: No scssOutput folder defined. SCSS files will not be saved (temporary files will be saved to '/scss').";
     }
 
     if(!opts.styleTemplate) {
@@ -75,11 +79,6 @@ module.exports = function(opts) {
     setFallbacks(opts);
 
     gulp.task('iconify-clean', function(cb) {
-        if(!opts.scssOutput) {
-            opts.scssDisabled = true;
-            opts.scssOutput = opts.cssOutput;
-        }
-
         del([opts.scssOutput+'/icons.*.scss', opts.cssOutput+'/icons.*.css', opts.pngOutput+'/*.png'], cb);
     });
 
@@ -122,6 +121,9 @@ module.exports = function(opts) {
     });
 
     gulp.task('iconify-sass', ['iconify-convert', 'iconify-fallback'], function() {
+        if (opts.cssDisabled) {
+            return false;
+        }
         var stream = gulp.src(opts.scssOutput+'/icons.*.scss')
             .pipe(sass({
                 outputStyle: 'compressed'
