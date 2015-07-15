@@ -123,7 +123,8 @@ module.exports = function(opts) {
                 styleTemplate: opts.styleTemplate,
                 styleName: 'icons.fallback.scss',
                 noConvert: true,
-                noConvertTarget: opts.scssOutput
+                cssOutputTarget: opts.cssOutput,
+                pngOutputTarget: opts.pngOutput
             }))
             .pipe(gulp.dest(opts.scssOutput));
 
