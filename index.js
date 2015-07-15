@@ -5,6 +5,7 @@ var svg2png = require('gulp-svg2png');
 var sass    = require('gulp-sass');
 var gutil   = require('gulp-util');
 var path    = require('path');
+var fs      = require('fs')
 
 function getErrors(opts) {
     var error = {};
@@ -41,6 +42,15 @@ function setFallbacks(opts) {
     if(!opts.scssOutput) {
         opts.scssOutput = './scss';
         opts.scssDisabled = true;
+
+        // check if "./scss" exists, if not: remember to remove the folder lateron.
+        fs.stat(path.normalize(opts.scssOutput), function (err) {
+            if (err) {
+                // File doesn't exist - remove scss folder on finish.
+                opts.scssRemoveDir = true;
+            }
+        });
+
         warning.scssOutput = "Info: No scssOutput folder defined. SCSS files will not be saved (temporary files will be saved to '/scss').";
     }
 
@@ -134,9 +144,13 @@ module.exports = function(opts) {
     });
 
     gulp.task('iconify', ['iconify-convert', 'iconify-fallback', 'iconify-sass'], function() {
-        // remove SCSS files if folder is not set.
+        // remove SCSS folder/files if SCSS output is disabled
         if(opts.scssDisabled) {
-            del.sync([opts.scssOutput+'/icons.*.scss']);
+            if(opts.scssRemoveDir) {
+                del.sync([opts.scssOutput]);
+            } else {
+                del.sync([opts.scssOutput+'/icons.*.scss']);
+            }
         }
     });
 

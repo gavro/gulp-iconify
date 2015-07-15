@@ -1,6 +1,6 @@
 {
   "name": "gulp-iconify",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "'A mystical CSS icon solution', grunticon-like build system.",
   "author": "Gabrijel Gavranović <gabrijel@gavro.nl> (http://gavro.nl)",
   "keywords": [
