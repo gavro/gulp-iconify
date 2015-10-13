@@ -59,17 +59,17 @@ function setFallbacks(opts) {
     }
 
     if(!opts.svgStyleName) {
-        opts.svgStyleName = "icons.svg.scss";
+        opts.svgStyleName = "_icons.svg.scss";
         warning.svgStyleName = "Info: No svgStyleName defined. Using fallback ("+opts.svgStyleName+").";
     }
 
     if(!opts.pngStyleName) {
-        opts.pngStyleName = "icons.png.scss",
+        opts.pngStyleName = "_icons.png.scss",
         warning.pngStyleName = "Info: No pngStyleName defined. Using fallback ("+opts.pngStyleName+").";
     }
 
     if(!opts.fallbackStyleName) {
-        opts.fallbackStyleName = "icons.fallback.scss",
+        opts.fallbackStyleName = "_icons.fallback.scss",
         warning.fallbackStyleName = "Info: No fallbackStyleName defined. Using fallback ("+opts.fallbackStyleName+").";
     }
 
