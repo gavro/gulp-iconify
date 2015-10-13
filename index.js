@@ -2,7 +2,6 @@ var gulp    = require('gulp');
 var iconify = require('./lib/iconify');
 var del     = require('del');
 var svg2png = require('gulp-svg2png');
-var sass    = require('gulp-sass');
 var gutil   = require('gulp-util');
 var path    = require('path');
 var fs      = require('fs');
@@ -151,6 +150,7 @@ module.exports = function(opts) {
             return false;
         }
 
+        var sass = require('gulp-sass');
         var stream = gulp.src(opts.scssOutput+'/icons.*.scss')
             .pipe(sass({
                 outputStyle: 'compressed'
