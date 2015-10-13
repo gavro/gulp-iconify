@@ -137,8 +137,7 @@ module.exports = function(opts) {
                 styleTemplate: opts.styleTemplate,
                 styleName: opts.fallbackStyleName,
                 noConvert: true,
-                cssOutputTarget: opts.cssOutput,
-                pngOutputTarget: opts.pngOutput
+                noConvertTarget: opts.scssOutput
             }))
             .pipe(gulp.dest(opts.scssOutput));
 
