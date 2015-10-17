@@ -103,7 +103,7 @@ module.exports = function(opts) {
     setFallbacks(opts);
 
     gulp.task('iconify-clean', function(cb) {
-        del([opts.scssOutput+'/icons.*.scss', opts.cssOutput+'/icons.*.css', opts.pngOutput+'/*.png'], cb);
+        del([opts.scssOutput+'/_icons.*.scss', opts.cssOutput+'/_icons.*.css', opts.pngOutput+'/*.png'], cb);
     });
 
     gulp.task('iconify-convert', ['iconify-clean'], function() {
@@ -150,7 +150,7 @@ module.exports = function(opts) {
         }
 
         var sass = require('gulp-sass');
-        var stream = gulp.src(opts.scssOutput+'/icons.*.scss')
+        var stream = gulp.src(opts.scssOutput+'/_icons.*.scss')
             .pipe(sass({
                 outputStyle: 'compressed'
             }))
@@ -165,7 +165,7 @@ module.exports = function(opts) {
             if(opts.scssRemoveDir) {
                 del.sync([opts.scssOutput]);
             } else {
-                del.sync([opts.scssOutput+'/icons.*.scss']);
+                del.sync([opts.scssOutput+'/_icons.*.scss']);
             }
         }
     });
