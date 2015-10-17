@@ -103,7 +103,9 @@ module.exports = function(opts) {
     setFallbacks(opts);
 
     gulp.task('iconify-clean', function(cb) {
-        del([opts.scssOutput+'/_icons.*.scss', opts.cssOutput+'/_icons.*.css', opts.pngOutput+'/*.png'], cb);
+        del([opts.scssOutput+'/_icons.*.scss', opts.cssOutput+'/_icons.*.css', opts.pngOutput+'/*.png']).then(function() {
+            cb();
+        });
     });
 
     gulp.task('iconify-convert', ['iconify-clean'], function() {
