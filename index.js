@@ -2,10 +2,9 @@ var gulp    = require('gulp');
 var iconify = require('./lib/iconify');
 var del     = require('del');
 var svg2png = require('gulp-svg2png');
-var sass    = require('gulp-sass');
 var gutil   = require('gulp-util');
 var path    = require('path');
-var fs      = require('fs')
+var fs      = require('fs');
 
 function getErrors(opts) {
     var error = {};
@@ -59,8 +58,23 @@ function setFallbacks(opts) {
         warning.styleTemplate = "Info: No styleTemplate defined. Using default template.";
     }
 
+    if(!opts.svgStyleName) {
+        opts.svgStyleName = "_icons.svg.scss";
+        warning.svgStyleName = "Info: No svgStyleName defined. Using fallback ("+opts.svgStyleName+").";
+    }
+
+    if(!opts.pngStyleName) {
+        opts.pngStyleName = "_icons.png.scss",
+        warning.pngStyleName = "Info: No pngStyleName defined. Using fallback ("+opts.pngStyleName+").";
+    }
+
+    if(!opts.fallbackStyleName) {
+        opts.fallbackStyleName = "_icons.fallback.scss",
+        warning.fallbackStyleName = "Info: No fallbackStyleName defined. Using fallback ("+opts.fallbackStyleName+").";
+    }
+
     if(!opts.svgoOptions) {
-        opts.svgoOptions = { enabled: true }
+        opts.svgoOptions = { enabled: true };
         warning.svgoOptions = "Info: No SVGO options defined, enabling SVGO by default.";
     }
 
@@ -89,14 +103,16 @@ module.exports = function(opts) {
     setFallbacks(opts);
 
     gulp.task('iconify-clean', function(cb) {
-        del([opts.scssOutput+'/icons.*.scss', opts.cssOutput+'/icons.*.css', opts.pngOutput+'/*.png'], cb);
+        del([opts.scssOutput+'/_icons.*.scss', opts.cssOutput+'/_icons.*.css', opts.pngOutput+'/*.png']).then(function() {
+            cb();
+        });
     });
 
     gulp.task('iconify-convert', ['iconify-clean'], function() {
         gulp.src(opts.src)
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
-                styleName: 'icons.svg.scss',
+                styleName: opts.svgStyleName,
                 svgoOptions: opts.svgoOptions,
                 defaultWidth: opts.defaultWidth,
                 defaultHeight: opts.defaultHeight
@@ -108,7 +124,7 @@ module.exports = function(opts) {
                 .pipe(gulp.dest(opts.pngOutput))
                     .pipe(iconify({
                         styleTemplate: opts.styleTemplate,
-                        styleName: 'icons.png.scss',
+                        styleName: opts.pngStyleName,
                         defaultWidth: opts.defaultWidth,
                         defaultHeight: opts.defaultHeight
                     }))
@@ -121,10 +137,9 @@ module.exports = function(opts) {
         var stream = gulp.src(opts.pngOutput+'/*.png')
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
-                styleName: 'icons.fallback.scss',
+                styleName: opts.fallbackStyleName,
                 noConvert: true,
-                cssOutputTarget: opts.cssOutput,
-                pngOutputTarget: opts.pngOutput
+                noConvertTarget: opts.scssOutput
             }))
             .pipe(gulp.dest(opts.scssOutput));
 
@@ -135,7 +150,9 @@ module.exports = function(opts) {
         if (opts.cssDisabled) {
             return false;
         }
-        var stream = gulp.src(opts.scssOutput+'/icons.*.scss')
+
+        var sass = require('gulp-sass');
+        var stream = gulp.src(opts.scssOutput+'/_icons.*.scss')
             .pipe(sass({
                 outputStyle: 'compressed'
             }))
@@ -150,7 +167,7 @@ module.exports = function(opts) {
             if(opts.scssRemoveDir) {
                 del.sync([opts.scssOutput]);
             } else {
-                del.sync([opts.scssOutput+'/icons.*.scss']);
+                del.sync([opts.scssOutput+'/_icons.*.scss']);
             }
         }
     });
