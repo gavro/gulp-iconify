@@ -104,7 +104,7 @@ module.exports = function(opts) {
             .pipe(gulp.dest(opts.scssOutput));
 
         var stream = gulp.src(opts.src)
-            .pipe(svg2png())
+            .pipe(svg2png(1.0, true, opts.concurrency || null))
                 .pipe(gulp.dest(opts.pngOutput))
                     .pipe(iconify({
                         styleTemplate: opts.styleTemplate,
