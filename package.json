@@ -27,7 +27,7 @@
     "through2": "~0.6.3",
     "imacss": "~0.3.0",
     "gulp-svg2png": "~0.3.0",
-    "gulp-sass": "~1.3.3",
+    "gulp-sass": "~2.1.0",
     "svgo": "~0.5.0",
     "del": "~1.1.1",
     "xmldom": "~0.1.19"
