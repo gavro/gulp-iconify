@@ -29,6 +29,7 @@ This simple call defaults to the following:
 - If SVG has no height attribute, the default fallback will be 200px
 - The default styleTemplate fill be used (examples shown below)
 - The default styleTemplate will *not* use the height/width slugs
+- See [gulp-svg2png](https://github.com/akoenig/gulp-svg2png) for default settings
 
 ###Customized example
 ```javascript
@@ -49,6 +50,11 @@ gulp.task('default', function() {
                     { mergePaths: false }
                 ]
             }
+        },
+        svg2pngOptions: {
+            scaling: 1.0,
+            verbose: true,
+            concurrency: null
         }
     });
 });
