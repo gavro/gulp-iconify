@@ -64,6 +64,11 @@ function setFallbacks(opts) {
         warning.svgoOptions = "Info: No SVGO options defined, enabling SVGO by default.";
     }
 
+    if(!opts.svg2pngOptions) {
+        opts.svg2pngOptions = {};
+        warning.svg2pngOptions = "Info: No svg2png options defined. Using default settings.";
+    }
+
     if(!opts.defaultWidth) {
         opts.defaultWidth = "300px";
         warning.defaultWidth = "Info: No defaultWidth defined. Using fallback ("+opts.defaultWidth+") if SVG has no width.";
@@ -104,7 +109,7 @@ module.exports = function(opts) {
             .pipe(gulp.dest(opts.scssOutput));
 
         var stream = gulp.src(opts.src)
-            .pipe(svg2png())
+            .pipe(svg2png(opts.svg2pngOptions.scaling, opts.svg2pngOptions.verbose, opts.svg2pngOptions.concurrency))
                 .pipe(gulp.dest(opts.pngOutput))
                     .pipe(iconify({
                         styleTemplate: opts.styleTemplate,
