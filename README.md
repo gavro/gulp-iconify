@@ -53,8 +53,8 @@ gulp.task('default', function() {
 
         // Concurrent tasks processed at one time,
         // use this if you have a lot of images.
-        // This property will be passed on to gulp-svg2png
-        concurrency: 100
+        // This property will be passed on to gulp-svg2png.
+        concurrency: 50
     });
 });
 ```
