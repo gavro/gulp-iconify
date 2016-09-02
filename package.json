@@ -17,7 +17,6 @@
   },
   "main": "index.js",
   "dependencies": {
-    "fs": "*",
     "path": "*",
     "domain": "*",
     "gulp": "*",
