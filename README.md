@@ -1,14 +1,10 @@
-gulp-iconify
-============
-
-'A mystical CSS icon solution', [grunticon](https://github.com/filamentgroup/grunticon)-like build system for [Gulp](https://github.com/gulpjs/gulp):
-
-'~~grunticon is a Grunt.js~~ gulp-iconify is a gulp task that makes it easy to manage icons and background images for all devices, preferring HD (retina) SVG icons but also provides fallback support for standard definition browsers, and old browsers alike. From a CSS perspective, it's easy to use, as it generates a class referencing each icon, and doesn't use CSS sprites.'
-
+gulp-svgify
+===========
+A SVG to CSS icon solution non-broken fork of gulp-iconify
 
 ##Usage
 ```shell
-npm install gulp-iconify --save-dev
+npm install gulp-svgify --save-dev
 ```
 
 ###Simple example
