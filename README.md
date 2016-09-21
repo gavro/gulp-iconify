@@ -1,14 +1,10 @@
-gulp-iconify
-============
-
-'A mystical CSS icon solution', [grunticon](https://github.com/filamentgroup/grunticon)-like build system for [Gulp](https://github.com/gulpjs/gulp):
-
-'~~grunticon is a Grunt.js~~ gulp-iconify is a gulp task that makes it easy to manage icons and background images for all devices, preferring HD (retina) SVG icons but also provides fallback support for standard definition browsers, and old browsers alike. From a CSS perspective, it's easy to use, as it generates a class referencing each icon, and doesn't use CSS sprites.'
-
+gulp-svgify
+===========
+A SVG to CSS icon solution non-broken fork of gulp-iconify
 
 ##Usage
 ```shell
-npm install gulp-iconify --save-dev
+npm install gulp-svgify --save-dev
 ```
 
 ###Simple example
@@ -22,21 +18,18 @@ gulp.task('default', function() {
 
 This simple call defaults to the following:
 - SVGs will be passed through SVGO (and optimised)
-- Rendered PNGs will be saved in: './img/icons/png'
 - Rendered SCSS files will NOT be saved
 - Rendered CSS files will be saved in: './css'
 - If SVG has no width attribute, the default fallback will be 300px
 - If SVG has no height attribute, the default fallback will be 200px
 - The default styleTemplate fill be used (examples shown below)
 - The default styleTemplate will *not* use the height/width slugs
-- See [gulp-svg2png](https://github.com/akoenig/gulp-svg2png) for default settings
 
 ###Customized example
 ```javascript
 gulp.task('default', function() {
     iconify({
         src: './img/icons/*.svg',
-        pngOutput: './img/icons/png',
         scssOutput: './scss',
         cssOutput:  './css',
         styleTemplate: '_icon_gen.scss.mustache',
@@ -50,11 +43,6 @@ gulp.task('default', function() {
                     { mergePaths: false }
                 ]
             }
-        },
-        svg2pngOptions: {
-            scaling: 1.0,
-            verbose: true,
-            concurrency: null
         }
     });
 });

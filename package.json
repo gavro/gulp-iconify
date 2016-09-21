@@ -1,41 +1,38 @@
 {
-  "name": "gulp-iconify",
-  "version": "0.5.0",
-  "description": "'A mystical CSS icon solution', grunticon-like build system.",
-  "author": "Gabrijel Gavranović <gabrijel@gavro.nl> (http://gavro.nl)",
+  "name": "gulp-svgify",
+  "version": "1.0.0",
+  "description": "'A SVG to CSS icon solution non-broken fork of gulp-iconify'",
+  "author": "Nick Blanchard <neb636@gmail.com>",
   "keywords": [
     "gulpplugin",
     "base64",
     "svg",
     "css",
-    "image",
+    "icon",
     "grunticon"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:gavro/gulp-iconify.git"
+    "url": "git@github.com:neb636/gulp-svgify.git"
   },
   "main": "index.js",
   "dependencies": {
-    "fs": "*",
-    "path": "*",
-    "domain": "*",
-    "gulp": "*",
+    "del": "~1.1.1",
+    "domain": "0.0.1",
+    "gulp": ">3.0",
+    "gulp-sass": "~2.1.0",
     "gulp-util": "~3.0.4",
+    "imacss": "~0.3.0",
     "mustache": "~2.0.0",
+    "svgo": "~0.5.0",
     "through": "~2.3.6",
     "through2": "~0.6.3",
-    "imacss": "~0.3.0",
-    "gulp-svg2png": "~1.0.0",
-    "gulp-sass": "~2.1.0",
-    "svgo": "~0.5.0",
-    "del": "~1.1.1",
     "xmldom": "~0.1.19"
   },
   "bugs": {
-    "url": "https://github.com/gavro/gulp-iconify/issues"
+    "url": "https://github.com/neb636/gulp-svgify/issues"
   },
-  "homepage": "https://github.com/gavro/gulp-iconify",
+  "homepage": "https://github.com/neb636/gulp-svgify",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
