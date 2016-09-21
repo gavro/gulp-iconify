@@ -1,6 +1,6 @@
 {
   "name": "gulp-svgify",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "'A SVG to CSS icon solution non-broken fork of gulp-iconify'",
   "author": "Nick Blanchard <neb636@gmail.com>",
   "keywords": [
