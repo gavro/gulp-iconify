@@ -1,11 +1,10 @@
 var gulp    = require('gulp');
 var iconify = require('./lib/iconify');
 var del     = require('del');
-var svg2png = require('gulp-svg2png');
 var sass    = require('gulp-sass');
 var gutil   = require('gulp-util');
 var path    = require('path');
-var fs      = require('fs')
+var fs      = require('fs');
 
 function getErrors(opts) {
     var error = {};
@@ -25,11 +24,6 @@ function getErrors(opts) {
 
 function setFallbacks(opts) {
     var warning = {};
-
-    if(!opts.pngOutput) {
-        opts.pngOutput = path.dirname(opts.src)+'/png';
-        warning.pngOutput = "Info: No pngOutput folder defined. Using fallback ("+opts.pngOutput+").";
-    }
 
     if(opts.cssOutput === undefined) {
         opts.cssOutput = './css';
@@ -64,11 +58,6 @@ function setFallbacks(opts) {
         warning.svgoOptions = "Info: No SVGO options defined, enabling SVGO by default.";
     }
 
-    if(!opts.svg2pngOptions) {
-        opts.svg2pngOptions = {};
-        warning.svg2pngOptions = "Info: No svg2png options defined. Using default settings.";
-    }
-
     if(!opts.defaultWidth) {
         opts.defaultWidth = "300px";
         warning.defaultWidth = "Info: No defaultWidth defined. Using fallback ("+opts.defaultWidth+") if SVG has no width.";
@@ -98,7 +87,7 @@ module.exports = function(opts) {
     });
 
     gulp.task('iconify-convert', ['iconify-clean'], function() {
-        gulp.src(opts.src)
+        var stream = gulp.src(opts.src)
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
                 styleName: 'icons.svg.scss',
@@ -107,17 +96,6 @@ module.exports = function(opts) {
                 defaultHeight: opts.defaultHeight
             }))
             .pipe(gulp.dest(opts.scssOutput));
-
-        var stream = gulp.src(opts.src)
-            .pipe(svg2png(opts.svg2pngOptions.scaling, opts.svg2pngOptions.verbose, opts.svg2pngOptions.concurrency))
-                .pipe(gulp.dest(opts.pngOutput))
-                    .pipe(iconify({
-                        styleTemplate: opts.styleTemplate,
-                        styleName: 'icons.png.scss',
-                        defaultWidth: opts.defaultWidth,
-                        defaultHeight: opts.defaultHeight
-                    }))
-                    .pipe(gulp.dest(opts.scssOutput));
 
         return stream;
     });
@@ -128,8 +106,7 @@ module.exports = function(opts) {
                 styleTemplate: opts.styleTemplate,
                 styleName: 'icons.fallback.scss',
                 noConvert: true,
-                cssOutputTarget: opts.cssOutput,
-                pngOutputTarget: opts.pngOutput
+                cssOutputTarget: opts.cssOutput
             }))
             .pipe(gulp.dest(opts.scssOutput));
 

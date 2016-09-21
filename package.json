@@ -1,6 +1,6 @@
 {
   "name": "gulp-svgify",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "'A SVG to CSS icon solution non-broken fork of gulp-iconify'",
   "author": "Nick Blanchard <neb636@gmail.com>",
   "keywords": [
@@ -8,7 +8,7 @@
     "base64",
     "svg",
     "css",
-    "image",
+    "icon",
     "grunticon"
   ],
   "repository": {
@@ -21,7 +21,6 @@
     "domain": "0.0.1",
     "gulp": ">3.0",
     "gulp-sass": "~2.1.0",
-    "gulp-svg2png": "~1.0.0",
     "gulp-util": "~3.0.4",
     "imacss": "~0.3.0",
     "mustache": "~2.0.0",
