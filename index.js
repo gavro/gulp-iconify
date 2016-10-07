@@ -5,7 +5,7 @@ var svg2png = require('gulp-svg2png');
 var sass    = require('gulp-sass');
 var gutil   = require('gulp-util');
 var path    = require('path');
-var fs      = require('fs')
+var fs      = require('fs');
 
 function getErrors(opts) {
     var error = {};
@@ -60,12 +60,16 @@ function setFallbacks(opts) {
     }
 
     if(!opts.svgoOptions) {
-        opts.svgoOptions = { enabled: true }
+        opts.svgoOptions = { enabled: true };
         warning.svgoOptions = "Info: No SVGO options defined, enabling SVGO by default.";
     }
 
     if(!opts.svg2pngOptions) {
-        opts.svg2pngOptions = {};
+        opts.svg2pngOptions = {
+            options: {},
+            verbose: false,
+            concurrency: 8
+        };
         warning.svg2pngOptions = "Info: No svg2png options defined. Using default settings.";
     }
 
@@ -109,7 +113,7 @@ module.exports = function(opts) {
             .pipe(gulp.dest(opts.scssOutput));
 
         var stream = gulp.src(opts.src)
-            .pipe(svg2png(opts.svg2pngOptions.scaling, opts.svg2pngOptions.verbose, opts.svg2pngOptions.concurrency))
+            .pipe(svg2png(opts.svg2pngOptions.options, opts.svg2pngOptions.verbose, opts.svg2pngOptions.concurrency))
                 .pipe(gulp.dest(opts.pngOutput))
                     .pipe(iconify({
                         styleTemplate: opts.styleTemplate,
