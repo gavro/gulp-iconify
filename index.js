@@ -2,7 +2,7 @@ var gulp    = require('gulp');
 var iconify = require('./lib/iconify');
 var del     = require('del');
 var svg2png = require('gulp-svg2png');
-var sass    = require('gulp-sass');
+var sass    = require('./lib/custom-gulp-sass');
 var gutil   = require('gulp-util');
 var path    = require('path');
 var fs      = require('fs');
@@ -98,14 +98,14 @@ module.exports = function(opts) {
     setFallbacks(opts);
 
     gulp.task('iconify-clean', function(cb) {
-        del([opts.scssOutput+'/icons.*.scss', opts.cssOutput+'/icons.*.css', opts.pngOutput+'/*.png'], cb);
+        del([opts.scssOutput+'/*icons.*.scss', opts.cssOutput+'/*icons.*.css', opts.pngOutput+'/*.png'], cb);
     });
 
     gulp.task('iconify-convert', ['iconify-clean'], function() {
         gulp.src(opts.src)
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
-                styleName: 'icons.svg.scss',
+                styleName: '_icons.svg.scss',
                 svgoOptions: opts.svgoOptions,
                 defaultWidth: opts.defaultWidth,
                 defaultHeight: opts.defaultHeight
@@ -114,14 +114,14 @@ module.exports = function(opts) {
 
         var stream = gulp.src(opts.src)
             .pipe(svg2png(opts.svg2pngOptions.options, opts.svg2pngOptions.verbose, opts.svg2pngOptions.concurrency))
-                .pipe(gulp.dest(opts.pngOutput))
-                    .pipe(iconify({
-                        styleTemplate: opts.styleTemplate,
-                        styleName: 'icons.png.scss',
-                        defaultWidth: opts.defaultWidth,
-                        defaultHeight: opts.defaultHeight
-                    }))
-                    .pipe(gulp.dest(opts.scssOutput));
+            .pipe(gulp.dest(opts.pngOutput))
+            .pipe(iconify({
+                styleTemplate: opts.styleTemplate,
+                styleName: '_icons.png.scss',
+                defaultWidth: opts.defaultWidth,
+                defaultHeight: opts.defaultHeight
+            }))
+            .pipe(gulp.dest(opts.scssOutput));
 
         return stream;
     });
@@ -130,7 +130,7 @@ module.exports = function(opts) {
         var stream = gulp.src(opts.pngOutput+'/*.png')
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
-                styleName: 'icons.fallback.scss',
+                styleName: '_icons.fallback.scss',
                 noConvert: true,
                 cssOutputTarget: opts.cssOutput,
                 pngOutputTarget: opts.pngOutput
@@ -144,7 +144,7 @@ module.exports = function(opts) {
         if (opts.cssDisabled) {
             return false;
         }
-        var stream = gulp.src(opts.scssOutput+'/icons.*.scss')
+        var stream = gulp.src(opts.scssOutput+'/_icons.*.scss')
             .pipe(sass({
                 outputStyle: 'compressed'
             }))
@@ -159,7 +159,7 @@ module.exports = function(opts) {
             if(opts.scssRemoveDir) {
                 del.sync([opts.scssOutput]);
             } else {
-                del.sync([opts.scssOutput+'/icons.*.scss']);
+                del.sync([opts.scssOutput+'/_icons.*.scss']);
             }
         }
     });
