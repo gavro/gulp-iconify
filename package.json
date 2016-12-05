@@ -17,9 +17,8 @@
   },
   "main": "index.js",
   "dependencies": {
-    "fs": "*",
-    "path": "*",
-    "domain": "*",
+    
+    
     "gulp": "*",
     "gulp-util": "~3.0.4",
     "mustache": "~2.0.0",
