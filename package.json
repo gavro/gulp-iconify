@@ -16,9 +16,7 @@
     "url": "git@github.com:gavro/gulp-iconify.git"
   },
   "main": "index.js",
-  "dependencies": {
-    
-    
+  "dependencies": {    
     "gulp": "*",
     "gulp-util": "~3.0.4",
     "mustache": "~2.0.0",
