@@ -27,9 +27,14 @@ function setFallbacks(opts) {
     var warning = {};
 
     if(!opts.pngOutput) {
-        opts.pngOutput = path.dirname(opts.src)+'/png';
-        warning.pngOutput = "Info: No pngOutput folder defined. Using fallback ("+opts.pngOutput+").";
+        warning.pngOutput = "Info: No pngOutput folder defined. Disabling PNG output.";
     }
+
+    // TODO: Reinstate this fallback to keep it easy for the end-user
+    // if(!opts.pngOutput) {
+    //     opts.pngOutput = path.dirname(opts.src)+'/png';
+    //     warning.pngOutput = "Info: No pngOutput folder defined. Using fallback ("+opts.pngOutput+"")..";
+    // }
 
     if(opts.cssOutput === undefined) {
         opts.cssOutput = './css';
@@ -64,7 +69,7 @@ function setFallbacks(opts) {
         warning.svgoOptions = "Info: No SVGO options defined, enabling SVGO by default.";
     }
 
-    if(!opts.svg2pngOptions) {
+    if(!opts.svg2pngOptions && opts.pngOutput) {
         opts.svg2pngOptions = {
             options: {},
             verbose: false,

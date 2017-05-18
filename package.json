@@ -1,19 +1,20 @@
 {
-  "name": "gulp-iconify",
-  "version": "0.6.0",
-  "description": "'A mystical CSS icon solution', grunticon-like build system.",
-  "author": "Gabrijel Gavranović <gabrijel@gavro.nl> (http://gavro.nl)",
+  "name": "gulp-iconify-reloaded",
+  "version": "0.0.1",
+  "description": "An updated and maintained version of gulp-iconfy. Based on the great work of gulp-iconify and grunticon",
+  "author": "Mathijs Rave <mail@mathijsrave.nl> (http://mathijsrave.nl)",
   "keywords": [
     "gulpplugin",
     "base64",
     "svg",
     "css",
     "image",
-    "grunticon"
+    "grunticon",
+    "iconify"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:gavro/gulp-iconify.git"
+    "url": "git@github.com:mathijsrave/gulp-iconify.git"
   },
   "main": "index.js",
   "dependencies": {
@@ -35,9 +36,9 @@
     "vinyl-sourcemaps-apply": "^0.2.0"
   },
   "bugs": {
-    "url": "https://github.com/gavro/gulp-iconify/issues"
+    "url": "https://github.com/mathijsrave/gulp-iconify/issues"
   },
-  "homepage": "https://github.com/gavro/gulp-iconify",
+  "homepage": "https://github.com/mathijsrave/gulp-iconify",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
