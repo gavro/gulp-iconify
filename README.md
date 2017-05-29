@@ -1,5 +1,20 @@
-gulp-iconify
+gulp-iconify-reloaded
 ============
+
+Gulp-iconify Reloaded is a reboot of the great work put in gulp-iconify.
+
+### Planned features
+* Callback for sequential iconify tasks
+* Multiple input/output folders
+* Parallel iconify tasks (gulp 4?)
+* PNG output toggle
+* Multiple color/sizes outputs (mixin helpers)
+* GUI (long term plan)
+* Animated SVG support (long term)
+* Inline SVG output (long term)
+* ... more
+
+** This part is still the old readme of gulp-iconify **
 
 'A mystical CSS icon solution', [grunticon](https://github.com/filamentgroup/grunticon)-like build system for [Gulp](https://github.com/gulpjs/gulp):
 
