@@ -1,6 +1,12 @@
 gulp-iconify
 ============
 
+##My changes
+You can provide `false` to `.cssOutput` and/or `.pngOutput` to disable scss->css and png generation, leaving only svg->svss generation, which is an only thing from this package that I personally use.
+Svg parser now also attempts to pull width/height data from `viewBox` property of svg, which is imo used quite often, if not more often than width/height.
+
+
+##Original readme
 'A mystical CSS icon solution', [grunticon](https://github.com/filamentgroup/grunticon)-like build system for [Gulp](https://github.com/gulpjs/gulp):
 
 '~~grunticon is a Grunt.js~~ gulp-iconify is a gulp task that makes it easy to manage icons and background images for all devices, preferring HD (retina) SVG icons but also provides fallback support for standard definition browsers, and old browsers alike. From a CSS perspective, it's easy to use, as it generates a class referencing each icon, and doesn't use CSS sprites.'
