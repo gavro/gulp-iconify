@@ -113,7 +113,7 @@ module.exports = function(opts) {
     // });
 
     gulp.task('iconify-convert', function() {
-        gulp.src(opts.src)
+       var stream = gulp.src(opts.src)
             .pipe(iconify({
                 styleTemplate: opts.styleTemplate,
                 styleName: opts.scssSvgName,
@@ -122,20 +122,22 @@ module.exports = function(opts) {
                 defaultHeight: opts.defaultHeight
             }))
             .pipe(gulp.dest(opts.scssOutput));
+        
 
-        if (opts.pngOutput === false) return; 
-
-        var stream = gulp.src(opts.src)
-            .pipe(svg2png())
+        if (opts.pngOutput) {
+            stream = gulp.src(opts.src)
+                .pipe(svg2png())
                 .pipe(gulp.dest(opts.pngOutput))
-                    .pipe(iconify({
-                        styleTemplate: opts.styleTemplate,
-                        styleName: opts.scssPngName,
-                        defaultWidth: opts.defaultWidth,
-                        defaultHeight: opts.defaultHeight
-                    }))
-                    .pipe(gulp.dest(opts.scssOutput));
+                .pipe(iconify({
+                    styleTemplate: opts.styleTemplate,
+                    styleName: opts.scssPngName,
+                    defaultWidth: opts.defaultWidth,
+                    defaultHeight: opts.defaultHeight
+                }))
+                .pipe(gulp.dest(opts.scssOutput));
 
+        };
+        
         return stream;
     });
 
